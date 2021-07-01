@@ -5,7 +5,7 @@ const instance = axios.create({
     baseURL: "https://www.flickr.com/services/rest/",
 })
 
-type PhotoType = {
+export type PhotoType = {
     description: { _content: string }
     farm: number
     height_c: number
