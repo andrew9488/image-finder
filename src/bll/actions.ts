@@ -2,7 +2,7 @@ import {PhotoType} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "./store";
 
-
+type FlagType = "add" | "delete"
 
 export type ActionsType = ReturnType<typeof showLoader>
     | ReturnType<typeof showError>
@@ -13,7 +13,7 @@ export type ActionsType = ReturnType<typeof showLoader>
     | ReturnType<typeof addBookmark>
     | ReturnType<typeof deleteBookmark>
 
-
+type AppThunkType = ThunkAction<void, AppRootStateType, unknown, ActionsType>
 
 
 //action creators
@@ -33,4 +33,12 @@ export const addBookmark = (bookmarks: Array<PhotoType>) =>
     ({type: "PHOTOS-REDUCER/ADD-BOOKMARK", bookmarks} as const)
 export const deleteBookmark = (bookmarks: Array<PhotoType>) =>
     ({type: "PHOTOS-REDUCER/DELETE-BOOKMARK", bookmarks} as const)
+
+//thunks
+export const deleteBookmarkTC = (id: string): AppThunkType => async (dispatch, getState) => {
+    const bookmarks = getState().photos.bookmarks
+    const bookmarkArr = [...bookmarks].filter((item) => item.id !== id)
+    dispatch(deleteBookmark(bookmarkArr))
+}
+
 
