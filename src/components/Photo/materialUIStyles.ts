@@ -29,13 +29,13 @@ export const useStyles = makeStyles((theme) =>
             marginTop: 15
         },
         inputContainer: {
-            width: "93%",
+            width: "80%",
             padding: "0 5px",
-            margin: "20px auto 0 auto;",
+            margin: "auto auto 10px auto;",
             background: theme.palette.secondary.light,
         },
         button: {
-            margin: "10px auto 20px auto",
+            margin: "10px auto 10px auto",
             width: 135,
             height: 32,
             color: theme.palette.secondary.light,

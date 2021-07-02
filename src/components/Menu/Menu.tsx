@@ -7,7 +7,7 @@ import {useStyles} from "./materialUIstyles";
 export const Menu: React.FC = () => {
 
     const classes = useStyles()
-    const [value, setValue] = React.useState(0)
+    const [value, setValue] = React.useState(window.location.pathname === "/bookmarks" ? 1 : 0)
 
     const handleChange = (e: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue)

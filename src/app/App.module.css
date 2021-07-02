@@ -1,0 +1,8 @@
+.App {
+  box-sizing: border-box;
+}
+
+.mainBlock{
+  display: flex;
+  padding: 20px 40px;
+}
