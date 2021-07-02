@@ -7,6 +7,7 @@ import InputBase from "@material-ui/core/InputBase";
 import {useStyles} from "./materialUIStyles";
 import {bookmarksManagerTC, BookmarkType, deleteBookmarkTC} from "../../bll/bookmark-reducer";
 import imageNotFound from "../../assets/images/imageNotFound.png";
+import {useDispatch} from "react-redux";
 
 type PhotoPropsType = {
     photo: BookmarkType
@@ -15,6 +16,7 @@ type PhotoPropsType = {
 export const Photo: React.FC<PhotoPropsType> = ({photo}) => {
 
     const styles = useStyles()
+    const dispatch = useDispatch()
     const [value, setValue] = useState("")
     const isBookmarksGallery = !!photo.tags
     const colorButton = photo.isBookmark ? "gray" : "#dc004e"
@@ -23,10 +25,10 @@ export const Photo: React.FC<PhotoPropsType> = ({photo}) => {
         e.preventDefault()
         if (!isBookmarksGallery) {
             isBookmark
-                ? bookmarksManagerTC("delete", id, isBookmark, value)
-                : bookmarksManagerTC("add", id, isBookmark, value);
+                ? dispatch(bookmarksManagerTC("delete", id, isBookmark, value))
+                : dispatch(bookmarksManagerTC("add", id, isBookmark, value))
         } else {
-            deleteBookmarkTC(id);
+            dispatch(deleteBookmarkTC(id))
         }
     }
 

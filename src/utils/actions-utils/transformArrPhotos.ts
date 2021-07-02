@@ -1,7 +1,7 @@
 import {PhotoType} from "../../api/api";
 import {BookmarkType} from "../../bll/bookmark-reducer";
 
-export const transformArrPhotos = (arr: Array<PhotoType>, bookmarks: BookmarkType) => {
+export const transformArrPhotos = (arr: Array<PhotoType>, bookmarks: Array<BookmarkType>) => {
     return arr.map((item) => {
         const title = item.title
         const cutTitle = title && title.length > 30 ? title.slice(0, 30) + "..." : title

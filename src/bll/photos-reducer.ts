@@ -53,7 +53,7 @@ export const setNumberOfPagesAC = (numberOfPages: number | null) =>
     ({type: "PHOTOS-REDUCER/SET-NUMBERS-OF-PAGES", numberOfPages} as const)
 
 //thunks
-export const getImages = (value: string): AppThunkType => async (dispatch, getState) => {
+export const getPhotosTC = (value: string): AppThunkType => async (dispatch, getState) => {
     const bookmarks = getState().bookmark.bookmarks
     dispatch(showLoaderAC("loading"))
     try {
