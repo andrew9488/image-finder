@@ -5,10 +5,10 @@ import {addPhotosAC} from "./photos-reducer";
 
 export type BookmarkReducerActionsType = | ReturnType<typeof addBookmarkAC> | ReturnType<typeof deleteBookmarkAC>
 type FlagType = "add" | "delete"
-export type BookmarkType = Array<PhotoType & { isBookmark: boolean , tags: string}>
+export type BookmarkType = PhotoType & { isBookmark: boolean , tags: string, url: string}
 
 const initialState = {
-    bookmarks: [] as BookmarkType
+    bookmarks: [] as Array<BookmarkType>
 }
 
 type InitialStateType = typeof initialState
@@ -31,9 +31,9 @@ export const bookmarkReducer = (state: InitialStateType = initialState, action: 
 }
 
 //action creators
-export const addBookmarkAC = (bookmarks: BookmarkType) =>
+export const addBookmarkAC = (bookmarks: Array<BookmarkType>) =>
     ({type: "BOOKMARK-REDUCER/ADD-BOOKMARK", bookmarks} as const)
-export const deleteBookmarkAC = (bookmarks: BookmarkType) =>
+export const deleteBookmarkAC = (bookmarks: Array<BookmarkType>) =>
     ({type: "BOOKMARK-REDUCER/DELETE-BOOKMARK", bookmarks} as const)
 
 //thunks
