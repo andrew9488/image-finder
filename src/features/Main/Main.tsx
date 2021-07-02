@@ -32,7 +32,7 @@ export const Main: React.FC = () => {
             {status && <div>"loading..."</div>}
 
             {showCommonInfo &&
-            <p className="message-info">
+            <p className={styles.message}>
                 No images here. Would you try to search for anything else?
             </p>
             }
