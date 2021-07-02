@@ -19,6 +19,7 @@ export type PhotoType = {
     title: string
     url_c: string
     width_c: number
+    tags?: string
 }
 
 type PhotosType = {
@@ -35,16 +36,14 @@ export type ResponseType = {
 }
 
 export const photoAPI = {
-    getPhotos(tags: string, page: number) {
+    getPhotos(tags: string, page?: number) {
         return instance.get<ResponseType>("?=flickr.photos.search",
             {
                 params: {
-                    api_key: apiKey, privacy_filter: 1, extras: "description", format: 'json',
-                    nojsoncallback: 1, per_page: 10, tags, page
+                    api_key: apiKey, privacy_filter: 1, extras: "description",
+                    format: 'json', nojsoncallback: 1, per_page: 10, tags, page
                 }
             })
-            .then(response => {
-                return response.data
-            })
+            .then(response => response.data)
     }
 }
