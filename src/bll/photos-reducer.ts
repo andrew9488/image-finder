@@ -5,10 +5,9 @@ import {showErrorAC, showLoaderAC} from "./app-reducer";
 export type PhotosReducerActionsType = ReturnType<typeof setPhotosAC> | ReturnType<typeof clearPhotosAC>
     | ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setNumberOfPagesAC>
 
-export type DomainPhotoType = PhotoType & { isBookmark: boolean }
 
 const initialState = {
-    photos: [] as Array<DomainPhotoType>,
+    photos: [] as Array<PhotoType>,
     numberOfPages: null as number | null,
     currentPage: 1,
 }
@@ -20,7 +19,7 @@ export const photosReducer = (state: InitialStateType = initialState, action: Ph
         case "PHOTOS-REDUCER/SET-PHOTOS":
             return {
                 ...state,
-                photos: action.photos.map(it => ({...it, isBookmark: false})),
+                photos: action.photos
             }
         case "PHOTOS-REDUCER/CLEAR-PHOTOS":
             return {

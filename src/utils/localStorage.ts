@@ -1,8 +1,8 @@
 import {AppRootStateType} from "../bll/store";
 
-export const loadState = (): AppRootStateType | undefined  => {
+export const loadState = (): AppRootStateType | undefined => {
     try {
-        const serializedState = localStorage.getItem('bookmark')
+        const serializedState = localStorage.getItem('bookmarks')
         if (serializedState === null) {
             return undefined
         }
@@ -15,7 +15,7 @@ export const loadState = (): AppRootStateType | undefined  => {
 export const saveState = (state: AppRootStateType) => {
     try {
         const serializedState = JSON.stringify(state)
-        localStorage.setItem('bookmark', serializedState)
+        localStorage.setItem('bookmarks', serializedState)
     } catch {
         // ignore write errors
     }

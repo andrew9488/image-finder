@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {clearPhotosAC, DomainPhotoType} from "../../bll/photos-reducer";
+import {clearPhotosAC, setCurrentPageAC} from "../../bll/photos-reducer";
 import {showErrorAC} from "../../bll/app-reducer";
 import {AppRootStateType} from "../../bll/store";
 import {SearchField} from "../../components/SearchField/SearchField";
@@ -8,16 +8,18 @@ import {PhotoGallery} from "../../components/PhotoGalery/PhotoGallery";
 import styles from "./Main.module.css"
 import {Pagination} from "../../components/Pagination/Pagination";
 import {Preloader} from "../../components/Preloader/Preloader";
+import {PhotoType} from "../../api/api";
 
 export const Main: React.FC = () => {
 
-    const photos = useSelector<AppRootStateType, Array<DomainPhotoType>>(state => state.photos.photos)
+    const photos = useSelector<AppRootStateType, Array<PhotoType>>(state => state.photos.photos)
     const error = useSelector<AppRootStateType, string | null>(state => state.app.error)
     const status = useSelector<AppRootStateType, string | null>(state => state.app.status)
     const dispatch = useDispatch()
 
     useEffect(() => {
         return () => {
+            dispatch(setCurrentPageAC(1))
             dispatch(clearPhotosAC())
             dispatch(showErrorAC(null))
         }
@@ -31,7 +33,6 @@ export const Main: React.FC = () => {
         <div className={styles.mainContainer}>
             <SearchField/>
             {status === "loading" && <Preloader/>}
-
             {showCommonInfo &&
             <p className={styles.message}>
                 No images here. Would you try to search for anything else?

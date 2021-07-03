@@ -1,72 +1,92 @@
-import React, {useState, MouseEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import {useStyles} from "./materialUIStyles";
-import {bookmarksManagerTC, BookmarkType, deleteBookmarkTC} from "../../bll/bookmark-reducer";
+import {addBookmarkAC, deleteBookmarkAC} from "../../bll/bookmark-reducer";
 import imageNotFound from "../../assets/images/imageNotFound.png";
 import {useDispatch} from "react-redux";
+import {PhotoType} from "../../api/api";
 
 type PhotoPropsType = {
-    photo: BookmarkType
+    photo: PhotoType
+    isBookmark: boolean
 }
 
-export const Photo: React.FC<PhotoPropsType> = ({photo}) => {
+export const Photo: React.FC<PhotoPropsType> = ({photo, isBookmark}) => {
 
     const styles = useStyles()
     const dispatch = useDispatch()
-    const [value, setValue] = useState("")
-    const isBookmarksGallery = !!photo.tags
-    const colorButton = photo.isBookmark ? "gray" : "#dc004e"
+    const [value, setValue] = useState<string>("")
+    const isBookmarksGallery = isBookmark
+    const colorButton = isBookmark ? "gray" : "#dc004e"
 
-    const actionBookmark = (e: MouseEvent, id: string, isBookmark: boolean) => {
-        e.preventDefault()
-        if (!isBookmarksGallery) {
-            isBookmark
-                ? dispatch(bookmarksManagerTC("delete", id, isBookmark, value))
-                : dispatch(bookmarksManagerTC("add", id, isBookmark, value))
-        } else {
-            dispatch(deleteBookmarkTC(id))
-        }
+    const actionBookmark = (photo: PhotoType, id: string) => {
+        isBookmark
+            ? dispatch(deleteBookmarkAC(id))
+            : dispatch(addBookmarkAC(photo, value))
+    }
+
+    const tagsChangeHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setValue(e.currentTarget.value)
     }
 
     return (
         <Card className={styles.root}>
-            {!isBookmarksGallery && (
+            {!isBookmarksGallery &&
+            <>
                 <Typography variant="h5" component="h1" className={styles.title}>
-                    {photo.title === "" ? "No title" : photo.title}
+                    {photo.title || photo.title.length > 30 ? photo.title.slice(0, 30) : "No title"}
                 </Typography>
-            )}
-            <CardMedia
-                title={photo.title}
-                className={styles.media}
-                image={photo.url ? photo.url : imageNotFound}
-            />
-            {isBookmarksGallery ? (
-                <Typography variant="h6" component="h6" className={styles.title}>
-                    {photo.tags}
-                </Typography>
-            ) : (
+                <CardMedia
+                    title={photo.title}
+                    className={styles.media}
+                    image={photo.url_c ? photo.url_c : imageNotFound}
+                />
+                <Button
+                    size="small"
+                    style={{background: colorButton}}
+                    className={styles.button}
+                    onClick={() => actionBookmark(photo, photo.id)}
+                >
+                    {isBookmark ? "Remove it!" : "Bookmark it!"}
+                </Button>
                 <InputBase
                     className={styles.inputContainer}
-                    placeholder="Enter tags"
-                    inputProps={{"aria-label": "Enter tags", maxLength: 28}}
-                    onChange={(event) => {
-                        setValue(event.target.value);
-                    }}
+                    placeholder="some tags?"
+                    inputProps={{"aria-label": "some tags", maxLength: 25}}
+                    onChange={tagsChangeHandler}
                     value={value}
                 />
-            )}
-            <Button
-                size="small"
-                style={{background: colorButton}}
-                className={styles.button}
-                onClick={(e) => actionBookmark(e, photo.id, photo.isBookmark)}
-            >
-                {photo.isBookmark ? "Remove it" : "Bookmark it!"}
-            </Button>
+            </>
+            }
+            {isBookmarksGallery &&
+            <>
+                {photo.tags
+                    ? <Typography variant="h5" component="h1" className={styles.title}>
+                        {photo.tags}
+                    </Typography>
+                    : <Typography variant="h5" component="h1" className={styles.title}>
+                        No tags
+                    </Typography>
+                }
+                <CardMedia
+                    title={photo.title}
+                    className={styles.media}
+                    image={photo.url_c ? photo.url_c : imageNotFound}
+                />
+                <Button
+                    size="small"
+                    style={{background: colorButton}}
+                    className={styles.button}
+                    onClick={() => actionBookmark(photo,photo.id)}
+                >
+                    {isBookmark ? "Remove it" : "Bookmark it!"}
+                </Button>
+            </>
+            }
         </Card>
     )
 }

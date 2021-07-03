@@ -2,13 +2,13 @@ import React from "react";
 import {PhotoGallery} from "../../components/PhotoGalery/PhotoGallery";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
-import {BookmarkType} from "../../bll/bookmark-reducer";
 import styles from "./Bookmarks.module.css";
+import {PhotoType} from "../../api/api";
 
 export const Bookmarks: React.FC = () => {
 
-    const bookmarks = useSelector<AppRootStateType, Array<BookmarkType>>(state => state.bookmarks.bookmarks)
-    const haveBookmarks = bookmarks.length !== 0
+    const bookmarks = useSelector<AppRootStateType, Array<PhotoType>>(state => state.bookmarks.bookmarks)
+    const haveBookmarks = bookmarks && bookmarks.length !== 0
 
     return (
         <div className={styles.bookmarksContainer}>

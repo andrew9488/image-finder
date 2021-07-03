@@ -41,7 +41,7 @@ export const photoAPI = {
             {
                 params: {
                     api_key: apiKey, privacy_filter: 1, extras: "description,url_c",
-                    format: 'json', nojsoncallback: 1, per_page: 8, tags, page
+                    format: 'json', nojsoncallback: 1, per_page: 10, tags, page
                 }
             })
             .then(response => response.data)

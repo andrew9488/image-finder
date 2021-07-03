@@ -37,6 +37,7 @@ export const SearchField: React.FC = () => {
                 onChange={searchChangeHandler}
                 value={value}
                 error
+                autoComplete="off"
             />
          </Paper>
     )
