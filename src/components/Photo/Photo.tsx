@@ -15,13 +15,13 @@ type PhotoPropsType = {
     isBookmark: boolean
 }
 
-export const Photo: React.FC<PhotoPropsType> = ({photo, isBookmark}) => {
+export const Photo: React.FC<PhotoPropsType> = React.memo(({photo, isBookmark}) => {
 
     const styles = useStyles()
     const dispatch = useDispatch()
     const [value, setValue] = useState<string>("")
     const isBookmarksGallery = isBookmark
-    const colorButton = isBookmark ? "gray" : "#dc004e"
+    const colorButton = isBookmark ? "#757575" : "#e53935"
 
     const actionBookmark = (photo: PhotoType, id: string) => {
         isBookmark
@@ -35,58 +35,34 @@ export const Photo: React.FC<PhotoPropsType> = ({photo, isBookmark}) => {
 
     return (
         <Card className={styles.root}>
-            {!isBookmarksGallery &&
-            <>
-                <Typography variant="h5" component="h1" className={styles.title}>
-                    {photo.title || photo.title.length > 30 ? photo.title.slice(0, 30) : "No title"}
+            <Typography variant="h5" component="h1" className={styles.title}>
+                {photo.title || photo.title.length > 30 ? photo.title.slice(0, 30) : "No title"}
+            </Typography>
+            <CardMedia
+                title={photo.title}
+                className={styles.media}
+                image={photo.url_c ? photo.url_c : imageNotFound}
+            />
+            <Button
+                size="small"
+                style={{background: colorButton}}
+                className={styles.button}
+                onClick={() => actionBookmark(photo, photo.id)}
+            >
+                {isBookmark ? "Remove it!" : "Bookmark it!"}
+            </Button>
+            {isBookmarksGallery
+                ? <Typography variant="h5" component="h1" className={styles.tags}>
+                    {photo.tags ? photo.tags : "No tags"}
                 </Typography>
-                <CardMedia
-                    title={photo.title}
-                    className={styles.media}
-                    image={photo.url_c ? photo.url_c : imageNotFound}
-                />
-                <Button
-                    size="small"
-                    style={{background: colorButton}}
-                    className={styles.button}
-                    onClick={() => actionBookmark(photo, photo.id)}
-                >
-                    {isBookmark ? "Remove it!" : "Bookmark it!"}
-                </Button>
-                <InputBase
+                : <InputBase
                     className={styles.inputContainer}
                     placeholder="some tags?"
                     inputProps={{"aria-label": "some tags", maxLength: 25}}
                     onChange={tagsChangeHandler}
                     value={value}
-                />
-            </>
-            }
-            {isBookmarksGallery &&
-            <>
-                {photo.tags
-                    ? <Typography variant="h5" component="h1" className={styles.title}>
-                        {photo.tags}
-                    </Typography>
-                    : <Typography variant="h5" component="h1" className={styles.title}>
-                        No tags
-                    </Typography>
-                }
-                <CardMedia
-                    title={photo.title}
-                    className={styles.media}
-                    image={photo.url_c ? photo.url_c : imageNotFound}
-                />
-                <Button
-                    size="small"
-                    style={{background: colorButton}}
-                    className={styles.button}
-                    onClick={() => actionBookmark(photo,photo.id)}
-                >
-                    {isBookmark ? "Remove it" : "Bookmark it!"}
-                </Button>
-            </>
-            }
+                />}
         </Card>
     )
-}
+})
+

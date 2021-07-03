@@ -1,5 +1,7 @@
 .galleryContainer {
     display: flex;
     justify-content: flex-start;
+    max-height: 700px;
     flex-wrap: wrap;
+    overflow-y: scroll;
 }

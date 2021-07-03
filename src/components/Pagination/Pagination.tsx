@@ -9,7 +9,7 @@ import {setCurrentPageAC} from "../../bll/photos-reducer";
 
 type ActionPaginationType = "back" | "forward"
 
-export const Pagination: React.FC = () => {
+export const Pagination: React.FC = React.memo(() => {
 
     const currentPage = useSelector<AppRootStateType, number>(state => state.photos.currentPage)
     const numberOfPages = useSelector<AppRootStateType, number | null>(state => state.photos.numberOfPages)
@@ -54,5 +54,5 @@ export const Pagination: React.FC = () => {
                 </Button>
             </ButtonGroup>
         </div>
-    );
-};
+    )
+})

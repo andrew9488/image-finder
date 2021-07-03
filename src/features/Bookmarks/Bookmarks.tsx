@@ -5,7 +5,7 @@ import {AppRootStateType} from "../../bll/store";
 import styles from "./Bookmarks.module.css";
 import {PhotoType} from "../../api/api";
 
-export const Bookmarks: React.FC = () => {
+export const Bookmarks: React.FC = React.memo(() => {
 
     const bookmarks = useSelector<AppRootStateType, Array<PhotoType>>(state => state.bookmarks.bookmarks)
     const haveBookmarks = bookmarks && bookmarks.length !== 0
@@ -17,4 +17,4 @@ export const Bookmarks: React.FC = () => {
                 : <p className={styles.message}>You haven’t added a bookmark yet.</p>}
         </div>
     )
-}
+})

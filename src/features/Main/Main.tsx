@@ -10,7 +10,7 @@ import {Pagination} from "../../components/Pagination/Pagination";
 import {Preloader} from "../../components/Preloader/Preloader";
 import {PhotoType} from "../../api/api";
 
-export const Main: React.FC = () => {
+export const Main: React.FC = React.memo(() => {
 
     const photos = useSelector<AppRootStateType, Array<PhotoType>>(state => state.photos.photos)
     const error = useSelector<AppRootStateType, string | null>(state => state.app.error)
@@ -25,9 +25,9 @@ export const Main: React.FC = () => {
         }
     }, [])
 
-    const haveImages = photos.length !== 0
-    const showImages = !error && haveImages
-    const showCommonInfo = status !== "loading" && !error && !haveImages
+    const havePhotos = photos.length !== 0
+    const showPhotos = !error && havePhotos
+    const showCommonInfo = status !== "loading" && !error && !havePhotos
 
     return (
         <div className={styles.mainContainer}>
@@ -38,8 +38,7 @@ export const Main: React.FC = () => {
                 No images here. Would you try to search for anything else?
             </p>
             }
-
-            {!showImages
+            {!showPhotos
                 ? <p className={styles.message}>{error}</p>
                 : <>
                     <Pagination/>
@@ -48,4 +47,4 @@ export const Main: React.FC = () => {
             }
         </div>
     )
-}
+})

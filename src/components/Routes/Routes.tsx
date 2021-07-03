@@ -3,7 +3,7 @@ import {Route, Switch} from "react-router-dom";
 import {Main} from "../../features/Main/Main";
 import {Bookmarks} from "../../features/Bookmarks/Bookmarks";
 
-const PATH = {
+export const PATH = {
     main: "/",
     bookmarks: "/bookmarks"
 }

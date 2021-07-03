@@ -8,7 +8,7 @@ import styles from "./App.module.css"
 import {Footer} from "../components/Footer/Footer";
 import {Routes} from "../components/Routes/Routes";
 
-export const App: React.FC = () => {
+export const App: React.FC = React.memo(() => {
     return (
         <div className={styles.App}>
             <MuiThemeProvider theme={theme}>
@@ -21,5 +21,5 @@ export const App: React.FC = () => {
             </MuiThemeProvider>
         </div>
     )
-}
+})
 

@@ -3,8 +3,9 @@ import React from 'react';
 import {Bookmarks, Cloud} from "@material-ui/icons";
 import {NavLink} from 'react-router-dom';
 import {useStyles} from "./materialUIstyles";
+import {PATH} from "../Routes/Routes";
 
-export const Menu: React.FC = () => {
+export const Menu: React.FC = React.memo(() => {
 
     const classes = useStyles()
     const [value, setValue] = React.useState(window.location.pathname === "/bookmarks" ? 1 : 0)
@@ -29,18 +30,18 @@ export const Menu: React.FC = () => {
                         aria-label="main"
                         className={classes.tab}
                         component={NavLink}
-                        to="/"
+                        to={PATH.main}
                         icon={<Cloud/>}
                     />
                     <Tab
                         aria-label="bookmarks"
                         className={classes.tab}
                         component={NavLink}
-                        to="/bookmarks"
+                        to={PATH.bookmarks}
                         icon={<Bookmarks/>}
                     />
                 </Tabs>
             </Paper>
         </div>
     )
-}
+})

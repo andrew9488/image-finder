@@ -6,7 +6,7 @@ import {useDebounce} from "../../utils/useDebounce";
 import {AppRootStateType} from "../../bll/store";
 import {useStyles} from "./materialUIstyles";
 
-export const SearchField: React.FC = () => {
+export const SearchField: React.FC = React.memo(() => {
 
     const currentPage = useSelector<AppRootStateType, number>(state => state.photos.currentPage)
     const classes = useStyles()
@@ -32,7 +32,6 @@ export const SearchField: React.FC = () => {
                 variant="outlined"
                 label="Find photos"
                 className={classes.input}
-                inputProps={{"aria-label": "Find photos"}}
                 autoFocus={true}
                 onChange={searchChangeHandler}
                 value={value}
@@ -41,4 +40,4 @@ export const SearchField: React.FC = () => {
             />
          </Paper>
     )
-}
+})
