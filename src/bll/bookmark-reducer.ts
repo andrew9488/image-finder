@@ -13,11 +13,9 @@ const loadedState = loadState()?.bookmarks
 let init:InitialStateType = loadedState ? loadedState : initialState
 
 export const bookmarkReducer = (state: InitialStateType = init, action: BookmarkReducerActionsType): InitialStateType => {
-
     switch (action.type) {
         case "BOOKMARK-REDUCER/ADD-BOOKMARK":
-            console.log(action)
-            if (!action.bookmark) return state;
+            if (!action.bookmark) return state
             return {
                 ...state,
                 bookmarks: [...state.bookmarks,

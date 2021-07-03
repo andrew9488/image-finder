@@ -1,13 +1,14 @@
 import {photoAPI, PhotoType} from "../api/api";
 import {AppThunkType} from "./store";
 import {showErrorAC, showLoaderAC} from "./app-reducer";
-import {transformArrPhotos} from "../utils/actions-utils/transformArrPhotos";
 
-export type PhotosReducerActionsType = ReturnType<typeof addPhotosAC> | ReturnType<typeof clearPhotosAC>
+export type PhotosReducerActionsType = ReturnType<typeof setPhotosAC> | ReturnType<typeof clearPhotosAC>
     | ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setNumberOfPagesAC>
 
+export type DomainPhotoType = PhotoType & { isBookmark: boolean }
+
 const initialState = {
-    photos: [] as Array<PhotoType>,
+    photos: [] as Array<DomainPhotoType>,
     numberOfPages: null as number | null,
     currentPage: 1,
 }
@@ -16,17 +17,16 @@ type InitialStateType = typeof initialState
 
 export const photosReducer = (state: InitialStateType = initialState, action: PhotosReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case "PHOTOS-REDUCER/ADD-PHOTOS":
+        case "PHOTOS-REDUCER/SET-PHOTOS":
             return {
                 ...state,
-                photos: [...action.photos],
+                photos: action.photos.map(it => ({...it, isBookmark: false})),
             }
         case "PHOTOS-REDUCER/CLEAR-PHOTOS":
             return {
                 ...state,
                 photos: [],
             }
-
         case "PHOTOS-REDUCER/SET-CURRENT-PAGE":
             return {
                 ...state,
@@ -43,8 +43,8 @@ export const photosReducer = (state: InitialStateType = initialState, action: Ph
 }
 
 //action creators
-export const addPhotosAC = (photos: Array<PhotoType>) =>
-    ({type: "PHOTOS-REDUCER/ADD-PHOTOS", photos} as const)
+export const setPhotosAC = (photos: Array<PhotoType>) =>
+    ({type: "PHOTOS-REDUCER/SET-PHOTOS", photos} as const)
 export const clearPhotosAC = () =>
     ({type: "PHOTOS-REDUCER/CLEAR-PHOTOS"} as const)
 export const setCurrentPageAC = (currentPage: number) =>
@@ -53,16 +53,13 @@ export const setNumberOfPagesAC = (numberOfPages: number | null) =>
     ({type: "PHOTOS-REDUCER/SET-NUMBERS-OF-PAGES", numberOfPages} as const)
 
 //thunks
-export const getPhotosTC = (value: string): AppThunkType => async (dispatch, getState) => {
-    const bookmarks = getState().bookmark.bookmarks
+export const getPhotosTC = (value: string, currentPage: number): AppThunkType => async (dispatch) => {
     dispatch(showLoaderAC("loading"))
     try {
-        const response = await photoAPI.getPhotos(value)
+        const response = await photoAPI.getPhotos(value, currentPage)
         const {photo, pages} = response.photos
-        const resultTransformImages = await transformArrPhotos(photo, bookmarks)
         dispatch(showLoaderAC("succeeded"))
-        // @ts-ignore
-        dispatch(addPhotosAC(resultTransformImages))
+        dispatch(setPhotosAC(photo))
         dispatch(setNumberOfPagesAC(pages))
     } catch (error) {
         dispatch(showErrorAC(error.message))

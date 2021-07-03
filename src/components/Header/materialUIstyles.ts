@@ -7,7 +7,7 @@ export const useStyles = makeStyles(() =>
         },
         title: {
             flexGrow: 1,
-            fontSize: 50
+            fontSize: 42
         }
     })
 )
