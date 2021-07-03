@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography variant="h4" className={classes.title}>
                         Copyrights
                     </Typography>
                 </Toolbar>

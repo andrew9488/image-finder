@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {clearPhotosAC, getPhotosTC} from "../../bll/photos-reducer";
-import {InputBase, Paper} from "@material-ui/core";
+import {Paper, TextField} from "@material-ui/core";
 import {useDebounce} from "../../utils/useDebounce";
 import {AppRootStateType} from "../../bll/store";
-import { useStyles } from "./materialUIstyles";
+import {useStyles} from "./materialUIstyles";
 
 export const SearchField: React.FC = () => {
 
@@ -14,29 +14,30 @@ export const SearchField: React.FC = () => {
     const [value, setValue] = useState<string>("")
     const debouncedValue = useDebounce(value, 500)
 
-    const handleChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        e.preventDefault()
+    const searchChangeHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
 
     useEffect(() => {
         dispatch(clearPhotosAC())
         if (value.trim() !== "") {
-            dispatch(getPhotosTC(value))
+            dispatch(getPhotosTC(value, currentPage))
         }
     }, [debouncedValue, currentPage])
 
     return (
         <Paper component="form" className={classes.root}>
-            <InputBase
+            <TextField
+                id="outlined-basic"
+                variant="outlined"
+                label="Find photos"
                 className={classes.input}
-                placeholder="Find photos"
-                inputProps={{ "aria-label": "Find photos" }}
+                inputProps={{"aria-label": "Find photos"}}
                 autoFocus={true}
-                onChange={handleChange}
+                onChange={searchChangeHandler}
                 value={value}
                 error
             />
-        </Paper>
+         </Paper>
     )
 }

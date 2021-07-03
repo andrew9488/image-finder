@@ -3,18 +3,16 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
-            minWidth: 260,
-            maxWidth: 345,
+            minWidth: 240,
+            maxWidth: 325,
             width: "100%",
             margin: "10px 20px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             background: "#8080801f",
-            transition: "all .2s ease-in-out",
             "&:hover": {
                 boxShadow: "4px 4px 12px rgba(0, 0, 0, 0.4)",
-                transform: "scale(1.025)",
             },
         },
         title: {
@@ -26,11 +24,12 @@ export const useStyles = makeStyles((theme) =>
         media: {
             height: 180,
             width: 275,
-            marginTop: 15
+            marginTop: 15,
         },
         inputContainer: {
             width: "80%",
             padding: "0 5px",
+            borderRadius: 4,
             margin: "auto auto 10px auto;",
             background: theme.palette.secondary.light,
         },

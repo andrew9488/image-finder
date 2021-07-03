@@ -4,11 +4,10 @@ export const useStyles = makeStyles(() =>
     createStyles({
         root: {
             flexGrow: 1,
-            width: "100%",
         },
         title: {
             flexGrow: 1,
-            fontSize: "32px"
+            fontSize: 50
         }
     })
 )
