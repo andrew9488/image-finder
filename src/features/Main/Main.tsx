@@ -7,6 +7,7 @@ import {SearchField} from "../../components/SearchField/SearchField";
 import {PhotoGallery} from "../../components/PhotoGalery/PhotoGallery";
 import styles from "./Main.module.css"
 import {Pagination} from "../../components/Pagination/Pagination";
+import {Preloader} from "../../components/Preloader/Preloader";
 
 export const Main: React.FC = () => {
 
@@ -29,7 +30,7 @@ export const Main: React.FC = () => {
     return (
         <div className={styles.mainContainer}>
             <SearchField/>
-            {status === "loading" && <div>"loading..."</div>}
+            {status === "loading" && <Preloader/>}
 
             {showCommonInfo &&
             <p className={styles.message}>
