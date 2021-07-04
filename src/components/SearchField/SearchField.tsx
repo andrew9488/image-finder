@@ -5,7 +5,7 @@ import {Paper, TextField} from "@material-ui/core";
 import {useDebounce} from "../../utils/useDebounce";
 import {AppRootStateType} from "../../bll/store";
 import {useStyles} from "./materialUIstyles";
-import {showErrorAC} from "../../bll/app-reducer";
+import {showAppErrorAC} from "../../bll/app-reducer";
 
 export const SearchField: React.FC = React.memo(() => {
 
@@ -18,7 +18,7 @@ export const SearchField: React.FC = React.memo(() => {
 
     const searchChangeHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setValue(e.currentTarget.value)
-        dispatch(showErrorAC(null))
+        dispatch(showAppErrorAC(null))
     }
 
     useEffect(() => {

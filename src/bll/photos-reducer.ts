@@ -1,6 +1,6 @@
 import {photoAPI, PhotoType} from "../api/api";
 import {AppThunkType} from "./store";
-import {showErrorAC, showLoaderAC} from "./app-reducer";
+import {showAppErrorAC, setAppStatusAC} from "./app-reducer";
 
 export type PhotosReducerActionsType = ReturnType<typeof setPhotosAC> | ReturnType<typeof clearPhotosAC>
     | ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setNumberOfPagesAC>
@@ -53,15 +53,15 @@ export const setNumberOfPagesAC = (numberOfPages: number | null) =>
 
 //thunks
 export const getPhotosTC = (value: string, currentPage: number): AppThunkType => async (dispatch) => {
-    dispatch(showLoaderAC("loading"))
+    dispatch(setAppStatusAC("loading"))
     try {
         const response = await photoAPI.getPhotos(value, currentPage)
         const {photo, pages} = response.photos
-        dispatch(showLoaderAC("succeeded"))
+        dispatch(setAppStatusAC("succeeded"))
         dispatch(setPhotosAC(photo))
         dispatch(setNumberOfPagesAC(pages))
     } catch (error) {
-        dispatch(showErrorAC(error.message))
-        dispatch(showLoaderAC("failed"))
+        dispatch(showAppErrorAC(error.message))
+        dispatch(setAppStatusAC("failed"))
     }
 }

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {clearPhotosAC, setCurrentPageAC} from "../../bll/photos-reducer";
-import {showErrorAC} from "../../bll/app-reducer";
+import {showAppErrorAC} from "../../bll/app-reducer";
 import {AppRootStateType} from "../../bll/store";
 import {SearchField} from "../../components/SearchField/SearchField";
 import {PhotoGallery} from "../../components/PhotoGalery/PhotoGallery";
@@ -21,7 +21,7 @@ export const Main: React.FC = React.memo(() => {
         return () => {
             dispatch(setCurrentPageAC(1))
             dispatch(clearPhotosAC())
-            dispatch(showErrorAC(null))
+            dispatch(showAppErrorAC(null))
         }
     }, [])
 

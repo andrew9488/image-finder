@@ -1,20 +1,20 @@
-export type AppReducerActionsType = ReturnType<typeof showLoaderAC> | ReturnType<typeof showErrorAC>
+export type AppReducerActionsType = ReturnType<typeof setAppStatusAC> | ReturnType<typeof showAppErrorAC>
 export type AppStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
     status: "idle" as AppStatusType,
     error: null as string | null,
 }
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 export const appReducer = (state: InitialStateType = initialState, action: AppReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case "APP-REDUCER/SHOW-LOADER":
+        case "APP-REDUCER/SET-APP-STATUS":
             return {
                 ...state,
                 status: action.status
             }
-        case "APP-REDUCER/SHOW-ERROR":
+        case "APP-REDUCER/SHOW-APP-ERROR":
             return {
                 ...state,
                 error: action.error
@@ -25,7 +25,7 @@ export const appReducer = (state: InitialStateType = initialState, action: AppRe
 }
 
 //action creators
-export const showLoaderAC = (status: AppStatusType) =>
-    ({type: "APP-REDUCER/SHOW-LOADER", status} as const)
-export const showErrorAC = (error: string | null) =>
-    ({type: "APP-REDUCER/SHOW-ERROR", error} as const)
+export const setAppStatusAC = (status: AppStatusType) =>
+    ({type: "APP-REDUCER/SET-APP-STATUS", status} as const)
+export const showAppErrorAC = (error: string | null) =>
+    ({type: "APP-REDUCER/SHOW-APP-ERROR", error} as const)
