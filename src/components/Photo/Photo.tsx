@@ -20,13 +20,14 @@ export const Photo: React.FC<PhotoPropsType> = React.memo(({photo, isBookmark}) 
     const styles = useStyles()
     const dispatch = useDispatch()
     const [value, setValue] = useState<string>("")
-    const isBookmarksGallery = isBookmark
+    const isBookmarksGallery = !!photo.tags
     const colorButton = isBookmark ? "#757575" : "#e53935"
 
     const actionBookmark = (photo: PhotoType, id: string) => {
         isBookmark
             ? dispatch(deleteBookmarkAC(id))
-            : dispatch(addBookmarkAC(photo, value))
+            : dispatch(addBookmarkAC(photo, value));
+        setValue("")
     }
 
     const tagsChangeHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -61,6 +62,7 @@ export const Photo: React.FC<PhotoPropsType> = React.memo(({photo, isBookmark}) 
                     inputProps={{"aria-label": "some tags", maxLength: 25}}
                     onChange={tagsChangeHandler}
                     value={value}
+                    disabled={isBookmark}
                 />}
         </Card>
     )
