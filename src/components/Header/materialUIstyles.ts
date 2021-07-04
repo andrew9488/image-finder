@@ -1,6 +1,6 @@
 import {makeStyles, createStyles} from "@material-ui/core/styles";
 
-export const useStyles = makeStyles(() =>
+export const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
             flexGrow: 1
@@ -8,6 +8,9 @@ export const useStyles = makeStyles(() =>
         title: {
             flexGrow: 1,
             fontSize: 42
+        },
+        icon:{
+            color: theme.palette.secondary.light
         }
     })
 )
