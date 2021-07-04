@@ -11,6 +11,7 @@ type PhotoGalleryPropsType = {
 }
 
 export const PhotoGallery: React.FC<PhotoGalleryPropsType> = React.memo(({photos}) => {
+
     const bookmarks = useSelector<AppRootStateType, Array<PhotoType>>(state => state.bookmarks.bookmarks)
 
     return (

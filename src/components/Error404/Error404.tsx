@@ -5,6 +5,7 @@ import style from "./Error404.module.css"
 
 
 export const Error404: React.FC = React.memo(() => {
+
     return (
         <div className={style.error}>
             <div>ERROR 404</div>

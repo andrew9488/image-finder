@@ -1,12 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
-        maxWidth: 60,
-        height: 95,
+        height: 96
     },
     tab: {
-        minWidth: 60,
+        minWidth: 60
     }
 }))
