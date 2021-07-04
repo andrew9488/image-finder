@@ -10,6 +10,7 @@ import {showErrorAC} from "../../bll/app-reducer";
 export const SearchField: React.FC = React.memo(() => {
 
     const currentPage = useSelector<AppRootStateType, number>(state => state.photos.currentPage)
+    const error = useSelector<AppRootStateType, string | null>(state => state.app.error)
     const classes = useStyles()
     const dispatch = useDispatch()
     const [value, setValue] = useState<string>("")
@@ -37,7 +38,7 @@ export const SearchField: React.FC = React.memo(() => {
                 autoFocus={true}
                 onChange={searchChangeHandler}
                 value={value}
-                error
+                error={!!error}
                 autoComplete="off"
             />
         </Paper>

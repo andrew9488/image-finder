@@ -9,6 +9,6 @@ export const useStyles = makeStyles((theme) =>
         },
         input: {
             width: "100%"
-        },
+        }
     })
 )
