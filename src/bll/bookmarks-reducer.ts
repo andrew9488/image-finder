@@ -7,12 +7,12 @@ const initialState = {
     bookmarks: [] as Array<PhotoType>
 }
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 const loadedState = loadState()?.bookmarks
 let init: InitialStateType = loadedState ? loadedState : initialState
 
-export const bookmarkReducer = (state: InitialStateType = init, action: BookmarkReducerActionsType): InitialStateType => {
+export const bookmarksReducer = (state: InitialStateType = init, action: BookmarkReducerActionsType): InitialStateType => {
     switch (action.type) {
         case "BOOKMARK-REDUCER/ADD-BOOKMARK":
             return {

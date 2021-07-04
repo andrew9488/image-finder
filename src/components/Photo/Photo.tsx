@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import {useStyles} from "./materialUIStyles";
-import {addBookmarkAC, deleteBookmarkAC} from "../../bll/bookmark-reducer";
+import {addBookmarkAC, deleteBookmarkAC} from "../../bll/bookmarks-reducer";
 import imageNotFound from "../../assets/images/imageNotFound.png";
 import {useDispatch} from "react-redux";
 import {PhotoType} from "../../api/api";

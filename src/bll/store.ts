@@ -1,13 +1,13 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {photosReducer, PhotosReducerActionsType} from "./photos-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
-import {bookmarkReducer, BookmarkReducerActionsType} from "./bookmark-reducer";
+import {bookmarksReducer, BookmarkReducerActionsType} from "./bookmarks-reducer";
 import {appReducer, AppReducerActionsType} from "./app-reducer";
 import {loadState, saveState} from "../utils/localStorage";
 
 export const rootReducer = combineReducers({
     photos: photosReducer,
-    bookmarks: bookmarkReducer,
+    bookmarks: bookmarksReducer,
     app: appReducer
 })
 
