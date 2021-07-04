@@ -12,7 +12,7 @@ const initialState = {
     currentPage: 1,
 }
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 export const photosReducer = (state: InitialStateType = initialState, action: PhotosReducerActionsType): InitialStateType => {
     switch (action.type) {
