@@ -8,3 +8,8 @@
 .message{
     text-align: center;
 }
+
+.error{
+    text-align: center;
+    color: #e53935;
+}

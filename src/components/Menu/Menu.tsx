@@ -16,7 +16,7 @@ export const Menu: React.FC = React.memo(() => {
 
     return (
         <div className={classes.root}>
-            <Paper square>
+            <Paper>
                 <Tabs
                     value={value}
                     onChange={handleChange}

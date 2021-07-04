@@ -39,7 +39,7 @@ export const Main: React.FC = React.memo(() => {
             </p>
             }
             {!showPhotos
-                ? <p className={styles.message}>{error}</p>
+                ? <p className={styles.error}>{error}</p>
                 : <>
                     <Pagination/>
                     <PhotoGallery photos={photos}/>

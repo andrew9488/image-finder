@@ -1,4 +1,4 @@
-import {photoAPI, ResponseType} from "../api/api";
+import {photoAPI, PhotoResponseType} from "../api/api";
 import {getPhotosTC, setNumberOfPagesAC, setPhotosAC} from "./photos-reducer";
 import {setAppStatusAC} from "./app-reducer";
 
@@ -12,7 +12,7 @@ const photoAPIMock = photoAPI as jest.Mocked<typeof photoAPI>
 const mockedDispatch = jest.fn()
 const mockedGetState = jest.fn()
 
-const response: ResponseType = {
+const response: PhotoResponseType = {
     stat: "ok",
     photos: {
         page: 1,
