@@ -26,7 +26,7 @@ export const Photo: React.FC<PhotoPropsType> = React.memo(({photo, isBookmark}) 
     const actionBookmark = (photo: PhotoType, id: string) => {
         isBookmark
             ? dispatch(deleteBookmarkAC(id))
-            : dispatch(addBookmarkAC(photo, value));
+            : dispatch(addBookmarkAC(photo, value ? value : "No tags"))
         setValue("")
     }
 
@@ -54,7 +54,7 @@ export const Photo: React.FC<PhotoPropsType> = React.memo(({photo, isBookmark}) 
             </Button>
             {isBookmarksGallery
                 ? <Typography variant="h5" component="h1" className={styles.tags}>
-                    {photo.tags ? photo.tags : "No tags"}
+                    {photo.tags}
                 </Typography>
                 : <InputBase
                     className={styles.inputContainer}
