@@ -50,7 +50,7 @@ export const photoAPI = {
 }
 
 
-//tried to make request for authorization
+//tried to make request for authorization, but CORS doesn't let me do it
 type AuthResponseType = {
     oauth_callback_confirmed: boolean
     oauth_token: string
@@ -65,32 +65,27 @@ export type AuthExchangeTokenResponseType = {
 }
 export const authAPI = {
     getToken(date: number, random: string) {
-        return instance.post<AuthResponseType>("oauth/request_token?", {},
+        return instance.post<AuthResponseType>(`oauth/request_token?oauth_nonce=${random}`, {},
             {
                 params: {
-                    oauth_consumer_key: apiKey, oauth_nonce: random,  oauth_signature_method: "HMAC-SHA1",
-                    oauth_signature: secret + "%" + 26, oauth_timestamp: date,  oauth_version: 1.0,
-                    oauth_callback: "http%3A%2F%2Fandrew9488.github.io/image-finder%2Frequest_token_ready"
+                    oauth_timestamp: date,oauth_consumer_key: apiKey,oauth_signature_method: "HMAC-SHA1",
+                    oauth_version: 1.0, oauth_signature: secret,
+                    oauth_callback: "https://andrew9488.github.io/image-finder"
                 }
             })
             .then(response => response.data)
     },
     getAuth(oauth_token: string) {
-        return instance.get<{ oauth_token: string, oauth_verifier: string }>("oauth/authorize?",
-            {
-                params: {
-                    oauth_token: oauth_token
-                }
-            })
+        return instance.get<{ oauth_token: string, oauth_verifier: string }>(`oauth/authorize?oauth_token=${oauth_token}`)
             .then(response => response.data)
     },
     exchangeToken(date: number, random: string, oauth_verifier: string, oauth_token: string) {
-        return instance.post<AuthExchangeTokenResponseType>("oauth/access_token", {},
+        return instance.post<AuthExchangeTokenResponseType>(`oauth/access_token?oauth_nonce=${random}`, {},
             {
                 params: {
-                    oauth_nonce: random, oauth_timestamp: date, oauth_verifier: oauth_verifier,
+                    oauth_timestamp: date, oauth_verifier: oauth_verifier,
                     oauth_consumer_key: apiKey, oauth_signature_method: "HMAC-SHA1",
-                    oauth_version: 1.0, oauth_token: oauth_token, oauth_signature: secret + "%" + 26
+                    oauth_version: 1.0, oauth_token: oauth_token, oauth_signature: secret
                 }
             })
             .then(response => response.data)

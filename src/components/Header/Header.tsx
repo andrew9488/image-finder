@@ -24,7 +24,7 @@ export const Header: React.FC = React.memo(() => {
                     <Typography variant="h1" className={classes.title}>
                         Image Finder
                     </Typography>
-                    <IconButton color="inherit" aria-label="icon" /*onClick={() => auth()}*/>
+                    <IconButton color="inherit" aria-label="icon" onClick={() => auth()}>
                         <AccountCircle fontSize="large" className={classes.icon}/>
                     </IconButton>
                 </Toolbar>
