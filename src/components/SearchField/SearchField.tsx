@@ -23,8 +23,8 @@ export const SearchField: React.FC = React.memo(() => {
 
     useEffect(() => {
         dispatch(clearPhotosAC())
-        if (value.trim() !== "") {
-            dispatch(getPhotosTC(value, currentPage))
+        if (debouncedValue.trim() !== "") {
+            dispatch(getPhotosTC(debouncedValue, currentPage))
         }
     }, [debouncedValue, currentPage])
 
@@ -35,7 +35,7 @@ export const SearchField: React.FC = React.memo(() => {
                 variant="outlined"
                 label="Find photos"
                 className={classes.input}
-                autoFocus={true}
+                autoFocus
                 onChange={searchChangeHandler}
                 value={value}
                 error={!!error}
