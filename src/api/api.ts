@@ -36,12 +36,6 @@ export type PhotoResponseType = {
     stat: string
 }
 
-type AuthResponseType = {
-    oauth_callback_confirmed: boolean
-    oauth_token: string
-    oauth_token_secret: string
-}
-
 export const photoAPI = {
     getPhotos(tags: string, page?: number) {
         return instance.get<PhotoResponseType>("rest/?method=flickr.photos.search",
@@ -55,16 +49,50 @@ export const photoAPI = {
     }
 }
 
+
+//tried to make request for authorization
+type AuthResponseType = {
+    oauth_callback_confirmed: boolean
+    oauth_token: string
+    oauth_token_secret: string
+}
+export type AuthExchangeTokenResponseType = {
+    fullname: string
+    oauth_token: string
+    oauth_token_secret: string
+    user_nsid: string
+    username: string
+}
 export const authAPI = {
-    getToken() {
-        return instance.post<AuthResponseType>("oauth/request_token?",
+    getToken(date: number, random: string) {
+        return instance.post<AuthResponseType>("oauth/request_token?", {},
             {
                 params: {
-                    oauth_consumer_key: apiKey, oauth_signature_method: "PLAINTEXT", oauth_signature: secret + "%" + 26,
-                    oauth_timestamp: 1191242090, oauth_nonce: "hsu94j3884jdopsl", oauth_version: 1.0,
+                    oauth_consumer_key: apiKey, oauth_nonce: random,  oauth_signature_method: "HMAC-SHA1",
+                    oauth_signature: secret + "%" + 26, oauth_timestamp: date,  oauth_version: 1.0,
                     oauth_callback: "http%3A%2F%2Fandrew9488.github.io/image-finder%2Frequest_token_ready"
                 }
             })
-            .then((response => response.data))
+            .then(response => response.data)
+    },
+    getAuth(oauth_token: string) {
+        return instance.get<{ oauth_token: string, oauth_verifier: string }>("oauth/authorize?",
+            {
+                params: {
+                    oauth_token: oauth_token
+                }
+            })
+            .then(response => response.data)
+    },
+    exchangeToken(date: number, random: string, oauth_verifier: string, oauth_token: string) {
+        return instance.post<AuthExchangeTokenResponseType>("oauth/access_token", {},
+            {
+                params: {
+                    oauth_nonce: random, oauth_timestamp: date, oauth_verifier: oauth_verifier,
+                    oauth_consumer_key: apiKey, oauth_signature_method: "HMAC-SHA1",
+                    oauth_version: 1.0, oauth_token: oauth_token, oauth_signature: secret + "%" + 26
+                }
+            })
+            .then(response => response.data)
     }
 }

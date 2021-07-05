@@ -1,14 +1,16 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {photosReducer, PhotosReducerActionsType} from "./photos-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
-import {bookmarksReducer, BookmarkReducerActionsType} from "./bookmarks-reducer";
+import {BookmarkReducerActionsType, bookmarksReducer} from "./bookmarks-reducer";
 import {appReducer, AppReducerActionsType} from "./app-reducer";
 import {loadState, saveState} from "../utils/localStorage";
+import {authReducer, AuthReducerActionsType} from "./auth-reducer";
 
 export const rootReducer = combineReducers({
     photos: photosReducer,
     bookmarks: bookmarksReducer,
-    app: appReducer
+    app: appReducer,
+    auth: authReducer
 })
 
 const persistedState = loadState()
@@ -18,6 +20,7 @@ store.subscribe(() => {
     saveState(store.getState())
 })
 
-type ActionsType = BookmarkReducerActionsType | PhotosReducerActionsType | AppReducerActionsType
+type ActionsType = BookmarkReducerActionsType | PhotosReducerActionsType
+    | AppReducerActionsType | AuthReducerActionsType
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppThunkType = ThunkAction<void, AppRootStateType, unknown, ActionsType>
