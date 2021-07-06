@@ -18,6 +18,7 @@ Bookmarks are saved to the browser local storage.
 ![image-finder](https://user-images.githubusercontent.com/70233346/124558019-d81e3c00-de42-11eb-89d5-7aedb418668c.png)
 
 ![image-finder](https://user-images.githubusercontent.com/70233346/124558073-e3716780-de42-11eb-91cd-de8c3872293f.png)
+
 “Bookmark it” button should be disabled or replaced to “Remove it” button if an image is added into bookmark.
 
 ![image-finder](https://user-images.githubusercontent.com/70233346/124558135-f1bf8380-de42-11eb-8c28-ddbda075f35f.png)
